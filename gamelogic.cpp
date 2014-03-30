@@ -12,8 +12,12 @@ bool GameLogic::set_cell(int x, int y, int newVal)
     if (val(x,y) == 0)
     {
         m_board[cid] = newVal;
+        return newVal;
     }
-    return val(x,y) == m_board[cid];
+    else
+    {
+        return 0;
+    }
 }
 
 
