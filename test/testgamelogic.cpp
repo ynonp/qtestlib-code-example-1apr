@@ -30,7 +30,7 @@ void TestGameLogic::testSetEmptyCells()
     {
         for(int j=0;j<3;j++)
         {
-            QVERIFY2(l.set_cell(i,j,1)==1,qPrintable(QString("set_cell(%1,%2)").arg(i,j)));
+            QVERIFY2(l.play(i,j),qPrintable(QString("set_cell(%1,%2)").arg(i,j)));
         }
     }
 }
@@ -38,16 +38,10 @@ void TestGameLogic::testSetEmptyCells()
 void TestGameLogic::testSetCellTwice()
 {
     GameLogic l;
-    QVERIFY2(l.set_cell(0,1,1)==1,"set_cell(0,1) works first time");
-    QVERIFY2(l.set_cell(0,1,1)==0,"set_cell(0,1) fails second time");
+    QVERIFY2(  l.play(0,1),"set_cell(0,1) works first time");
+    QVERIFY2(! l.play(0,1),"set_cell(0,1) fails second time");
 }
 
-void TestGameLogic::testSetCellTwiceWithDifferentValues()
-{
-    GameLogic l;
-    QVERIFY2(l.set_cell(0,1,1)==1,"set_cell(0,1) works first time");
-    QVERIFY2(l.set_cell(0,1,2)==0,"set_cell(0,1) fails second time");
-}
 
 void TestGameLogic::testWinner_data()
 {
@@ -56,20 +50,21 @@ void TestGameLogic::testWinner_data()
     QTest::addColumn<int>("winner");
 
     CellsList moves;
-    moves << qMakePair(0,0);
-    moves << qMakePair(0,1);
-    moves << qMakePair(0,2);
-
+    moves << qMakePair(0,0) << qMakePair(1,0) <<
+             qMakePair(0,1) << qMakePair(2,0) <<
+             qMakePair(0,2);
     QTest::newRow("1 wins first row") << moves << 1 << 1;
 
     moves.clear();
-    moves << qMakePair(0,0);
-    moves << qMakePair(1,0);
-    moves << qMakePair(2,0);
+    moves << qMakePair(0,0) << qMakePair(0,1) <<
+             qMakePair(1,0) << qMakePair(1,1) <<
+             qMakePair(2,0);
     QTest::newRow("1 wins first column") << moves << 1 << 1;
 
     moves.clear();
-    moves << qMakePair(0,0) << qMakePair(1,1) << qMakePair(2,2);
+    moves << qMakePair(0,0) << qMakePair(1,0) <<
+             qMakePair(1,1) << qMakePair(2,0) <<
+             qMakePair(2,2);
     QTest::newRow("1 wins diagonal") << moves << 1 << 1;
 }
 
@@ -83,7 +78,7 @@ void TestGameLogic::testWinner()
     for(int i=0;i<moves.length();i++)
     {
         QPair<int,int> cell = moves.at(i);
-        l.set_cell(cell.first, cell.second, player);
+        l.play(cell.first, cell.second);
     }
 
     QCOMPARE(l.has_winner(),winner);

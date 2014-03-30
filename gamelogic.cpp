@@ -4,6 +4,7 @@ GameLogic::GameLogic(QObject *parent) :
     QObject(parent)
 {
     reset();
+    m_current_player = 1;
 }
 
 bool GameLogic::set_cell(int x, int y, int newVal)
@@ -20,6 +21,18 @@ bool GameLogic::set_cell(int x, int y, int newVal)
     }
 }
 
+bool GameLogic::play(int x, int y)
+{
+    if ( set_cell(x,y,m_current_player) )
+    {
+        m_current_player = m_current_player == 1 ? 2 : 1;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 int GameLogic::has_winner()
 {

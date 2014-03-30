@@ -16,7 +16,6 @@ private Q_SLOTS:
     void testCase1();
     void testSetEmptyCells();
     void testSetCellTwice();
-    void testSetCellTwiceWithDifferentValues();
 
     void testWinner_data();
     void testWinner();

@@ -13,9 +13,9 @@ public:
 signals:
 
 public slots:
-    bool set_cell(int x, int y, int newVal);
     int has_winner();
     void reset();
+    bool play(int x, int y);
 
 private:
     int cell_idx(int x, int y);
@@ -25,8 +25,10 @@ private:
     int has_winner_col(int col);
     int has_winner_diag();
 
+    bool set_cell(int x, int y, int newVal);
 private:
-    QList<int> m_board;
+    int         m_current_player;
+    QList<int>  m_board;
 };
 
 #endif // GAMELOGIC_H
