@@ -15,7 +15,10 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += tst_gamelogic.cpp ../gamelogic.cpp
-HEADERS += ../gamelogic.h
+SOURCES += ../gamelogic.cpp \
+    main.cpp \
+    testgamelogic.cpp
+HEADERS += ../gamelogic.h \
+    testgamelogic.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
