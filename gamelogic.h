@@ -15,7 +15,7 @@ signals:
 public slots:
     int has_winner();
     void reset();
-    bool play(int x, int y);
+    int play(int x, int y);
 
 private:
     int cell_idx(int x, int y);

@@ -21,16 +21,17 @@ bool GameLogic::set_cell(int x, int y, int newVal)
     }
 }
 
-bool GameLogic::play(int x, int y)
+int GameLogic::play(int x, int y)
 {
+    int result = m_current_player;
     if ( set_cell(x,y,m_current_player) )
     {
         m_current_player = m_current_player == 1 ? 2 : 1;
-        return true;
+        return result;
     }
     else
     {
-        return false;
+        return 0;
     }
 }
 
